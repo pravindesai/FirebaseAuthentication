@@ -4,11 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.ContentInfoCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement.Util.GlobalStrings
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.android.synthetic.main.activity_registration.editTextTextPassword
 import kotlinx.android.synthetic.main.activity_registration.editTextTextPhoneNumber
@@ -24,20 +24,24 @@ class RegistrationActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         alreadyHaveAccount.setOnClickListener {
             val loginIntent = Intent(this, LoginActivity::class.java)
+            loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(loginIntent)
         }
 
         registerButton.setOnClickListener {
+
+
+
             registerUser()
         }
 
     }
 
     private fun registerUser() {
-        val fname   :String = firstNameEt.text.toString()
-        val lname   :String = lastNameEt.text.toString()
-        val phone   :String = editTextTextPhoneNumber.text.toString()
-        val password:String = editTextTextPassword.text.toString()
+        val fname   :String = fnameEt. text.toString()
+        val lname   :String = lnameEt.text.toString()
+        val phone   :String = phoneEt.text.toString()
+        val password:String = passEt.text.toString()
 
         if (fname.trim().isEmpty() || fname.trim().isBlank()) {
             firstNameEt.setError("Required")

@@ -3,13 +3,16 @@ package com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement.Util.GlobalStrings
 import kotlinx.android.synthetic.main.activity_otp_verification.*
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class OtpVerificationActivity : AppCompatActivity() {
@@ -27,26 +30,33 @@ class OtpVerificationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_otp_verification)
 
-        auth = FirebaseAuth.getInstance()
+             auth = FirebaseAuth.getInstance()
 
-           fname    = intent.getStringExtra(GlobalStrings.fname).toString()
-           lname    = intent.getStringExtra(GlobalStrings.lname).toString()
-           phone    = intent.getStringExtra(GlobalStrings.phone).toString()
-           password = intent.getStringExtra(GlobalStrings.password  ).toString()
+             fname    = intent.getStringExtra(GlobalStrings.fname).toString()
+             lname    = intent.getStringExtra(GlobalStrings.lname).toString()
+             phone    = intent.getStringExtra(GlobalStrings.phone).toString()
+             password = intent.getStringExtra(GlobalStrings.password  ).toString()
 
             sendVerificationCode(phone)
 
-        verifyButton.setOnClickListener {
-            val code:String = editTextOtp.text.toString()
-            if (code.isBlank() || code.isEmpty() || code.length<6){
-                editTextOtp.setError("")
-                editTextOtp.requestFocus()
-                return@setOnClickListener
+            verifyButton.setOnClickListener {
+                submitOtp()
             }
 
-            signInWithPhoneAuthCredential(code)
-        }
+            otpEt.doAfterTextChanged {
+                submitOtp()
+            }
 
+    }
+
+    private fun submitOtp() {
+        val code:String = otpEt.text.toString()
+        if (code.isBlank() || code.isEmpty() || code.length<6){
+            editTextOtp.setError("")
+            editTextOtp.requestFocus()
+            return
+        }
+        signInWithPhoneAuthCredential(code)
     }
 
     //Turn on phone authentication from FirebaseProject->Authentication->Sign-InMethods
@@ -71,15 +81,13 @@ class OtpVerificationActivity : AppCompatActivity() {
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
-            Log.w("**", "onVerificationFailed", e)
+            Log.e("**", "onVerificationFailed", e)
 
             Toast.makeText(this@OtpVerificationActivity, "Verification failed.", Toast.LENGTH_SHORT).show()
             // Show a message and update the UI
         }
 
         override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-
-            Toast.makeText(this@OtpVerificationActivity, "OTP sent", Toast.LENGTH_SHORT).show()
             Log.e(TAG, "onCodeSent")
             verificationCode = verificationId
 
@@ -88,6 +96,9 @@ class OtpVerificationActivity : AppCompatActivity() {
 
     private fun signInWithPhoneAuthCredential(code:String) {
             val credential = PhoneAuthProvider.getCredential(verificationCode, code)
+
+
+
             auth.signInWithCredential(credential).addOnCompleteListener {
                     if (it.isSuccessful){
 

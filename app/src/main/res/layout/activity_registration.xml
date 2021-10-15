@@ -6,42 +6,91 @@
     android:layout_height="match_parent"
     tools:context=".RegistrationActivity">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextTextPhoneNumber"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Phone Number"
         android:inputType="phone"
-        android:padding="15dp"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastNameEt" />
+        app:layout_constraintTop_toBottomOf="@+id/lastNameEt">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phoneEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextTextPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="15dp"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPhoneNumber"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPhoneNumber"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPhoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPhoneNumber">
 
-    <Button
-        android:id="@+id/registerButton"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lastNameEt"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:padding="15dp"
-        android:text="Sign Up"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/firstNameEt"
+        app:layout_constraintStart_toStartOf="@+id/firstNameEt"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameEt">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lnameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/firstNameEt"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textPersonName"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPhoneNumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPhoneNumber"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32999998">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fnameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/alreadyHaveAccount"
@@ -62,32 +111,14 @@
             android:text="Already have account? " />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/lastNameEt"
+    <Button
+        android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:ems="10"
-        android:hint="Last Name"
-        android:inputType="textPersonName"
         android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/firstNameEt"
-        app:layout_constraintStart_toStartOf="@+id/firstNameEt"
-        app:layout_constraintTop_toBottomOf="@+id/firstNameEt" />
-
-    <EditText
-        android:id="@+id/firstNameEt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="First Name"
-        android:inputType="textPersonName"
-        android:padding="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPhoneNumber"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPhoneNumber"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32999998" />
-
+        android:text="Sign Up"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>
