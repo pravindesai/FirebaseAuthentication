@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1015765035424",
+    "project_id": "fir-authenticationcomple-2d344",
+    "storage_bucket": "fir-authenticationcomple-2d344.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015765035424:android:3cd4a40b23196e1185dcc5",
+        "android_client_info": {
+          "package_name": "com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015765035424-a91db3fq5h2i6p0ekji8c8m59ddjcvqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTv1GMhXgVfoj7UZlJhq4-1gvCLT3j_Uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015765035424-a91db3fq5h2i6p0ekji8c8m59ddjcvqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
