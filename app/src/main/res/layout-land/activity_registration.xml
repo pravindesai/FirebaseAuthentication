@@ -9,104 +9,112 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextTextPhoneNumber"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:padding="10dp"
+            android:scrollbars="none">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:hint="Phone Number"
-                android:padding="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lastNameEt">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phoneEt"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextTextPhoneNumber"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="5dp"
+                    android:ems="10"
+                    android:hint="Phone Number"
+                    android:padding="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lastNameEt">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/firstNameEt"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="First Name"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPhoneNumber"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextPhoneNumber"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.32999998">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fnameEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/lastNameEt"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:hint="Last Name"
-                android:inputType="textPersonName"
-                android:padding="5dp"
-                app:layout_constraintEnd_toEndOf="@+id/firstNameEt"
-                app:layout_constraintStart_toStartOf="@+id/firstNameEt"
-                app:layout_constraintTop_toBottomOf="@+id/firstNameEt">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/lnameEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextTextPassword"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:hint="Password"
-                android:padding="5dp"
-                app:layout_constraintEnd_toEndOf="@+id/editTextTextPhoneNumber"
-                app:layout_constraintStart_toStartOf="@+id/editTextTextPhoneNumber"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPhoneNumber">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/passEt"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/firstNameEt"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:ems="10"
+                    android:hint="First Name"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
+                    app:layout_constraintEnd_toEndOf="@+id/editTextTextPhoneNumber"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/editTextTextPhoneNumber"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.32999998">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fnameEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/lastNameEt"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ems="10"
+                    android:hint="Last Name"
+                    android:inputType="textPersonName"
+                    android:padding="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/firstNameEt"
+                    app:layout_constraintStart_toStartOf="@+id/firstNameEt"
+                    app:layout_constraintTop_toBottomOf="@+id/firstNameEt">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lnameEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/editTextTextPassword"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:padding="5dp"
+                    app:layout_constraintEnd_toEndOf="@+id/editTextTextPhoneNumber"
+                    app:layout_constraintStart_toStartOf="@+id/editTextTextPhoneNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPhoneNumber">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-        </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
 
         <LinearLayout
             android:layout_width="match_parent"

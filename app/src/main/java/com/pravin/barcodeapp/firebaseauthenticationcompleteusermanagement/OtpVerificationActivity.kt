@@ -11,6 +11,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement.Util.GlobalStrings
+import com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement.Util.UniversalProgressDialog
 import kotlinx.android.synthetic.main.activity_otp_verification.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -40,11 +41,12 @@ class OtpVerificationActivity : AppCompatActivity() {
             sendVerificationCode(phone)
 
             verifyButton.setOnClickListener {
+                UniversalProgressDialog.show(this)
                 submitOtp()
             }
 
             otpEt.doAfterTextChanged {
-                submitOtp()
+                //submitOtp()
             }
 
     }
@@ -54,6 +56,7 @@ class OtpVerificationActivity : AppCompatActivity() {
         if (code.isBlank() || code.isEmpty() || code.length<6){
             editTextOtp.setError("")
             editTextOtp.requestFocus()
+            UniversalProgressDialog.hide()
             return
         }
         signInWithPhoneAuthCredential(code)
@@ -78,11 +81,12 @@ class OtpVerificationActivity : AppCompatActivity() {
             if (code!=null){
                 signInWithPhoneAuthCredential(code)
             }
+            UniversalProgressDialog.hide()
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
             Log.e("**", "onVerificationFailed", e)
-
+            UniversalProgressDialog.hide()
             Toast.makeText(this@OtpVerificationActivity, "Verification failed.", Toast.LENGTH_SHORT).show()
             // Show a message and update the UI
         }
@@ -97,8 +101,6 @@ class OtpVerificationActivity : AppCompatActivity() {
     private fun signInWithPhoneAuthCredential(code:String) {
             val credential = PhoneAuthProvider.getCredential(verificationCode, code)
 
-
-
             auth.signInWithCredential(credential).addOnCompleteListener {
                     if (it.isSuccessful){
 
@@ -110,19 +112,26 @@ class OtpVerificationActivity : AppCompatActivity() {
 
 
                         val intent = Intent(this@OtpVerificationActivity, ProfileActivity::class.java)
+                            intent.putExtra( GlobalStrings.fname,    fname)
+                            intent.putExtra( GlobalStrings.lname,    lname)
+                            intent.putExtra( GlobalStrings.phone,    phone)
+                            intent.putExtra( GlobalStrings.password, password)
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
                         Log.e(TAG, "**signInWithPhoneAuthCredential: Uniques uid--> "+auth.currentUser?.uid )
 
+                        UniversalProgressDialog.hide()
                         startActivity(intent)
                         this.finish()
                     }else{
                         Toast.makeText(this@OtpVerificationActivity, "Failed*", Toast.LENGTH_SHORT).show()
+                        UniversalProgressDialog.hide()
                     }
             }.addOnFailureListener {
                 Toast.makeText(this@OtpVerificationActivity, "Failed", Toast.LENGTH_SHORT).show()
+                UniversalProgressDialog.hide()
         }
     }
 

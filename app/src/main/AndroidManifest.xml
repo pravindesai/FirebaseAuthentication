@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".Util.AuthApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="FirebaseAuthentication"
@@ -18,10 +19,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".OtpVerificationActivity" />
+        <activity android:name=".OtpVerificationActivity"
+            android:noHistory="true"/>
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".LoginActivity"/>
         <activity android:name=".ProfileActivity" />
+
     </application>
 
 

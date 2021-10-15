@@ -10,6 +10,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.SignInMethodQueryResult
 import com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement.Util.GlobalStrings
+import com.pravin.barcodeapp.firebaseauthenticationcompleteusermanagement.Util.UniversalProgressDialog
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -41,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            UniversalProgressDialog.show(this)
             LogInIfUserExists(phoneNumber, password, SIGN_IN_METHOD_PASSWORD)
 
         }
@@ -50,18 +52,20 @@ class LoginActivity : AppCompatActivity() {
             val phoneNumber = phoneEt.text.toString()
 
                 if (phoneNumber.isBlank() || phoneNumber.length<10){
-                    editTextTextPhoneNumber.setError("Please Confirm!!")
+                    editTextTextPhoneNumber.error = "Please Confirm!!"
                     editTextTextPhoneNumber.requestFocus()
                     return@setOnClickListener
                 }
 
+            UniversalProgressDialog.show(this)
             LogInIfUserExists(phoneNumber, password = "", SIGN_IN_METHOD_OTP)
         }
 
         registrationButton.setOnClickListener {
             val registrationIntent = Intent(this@LoginActivity, RegistrationActivity::class.java)
-            registrationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            registrationIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(registrationIntent)
+
         }
 
     }
@@ -77,12 +81,14 @@ class LoginActivity : AppCompatActivity() {
                         userExists(phoneMail, password, method);
                     }else{
                         //No User found for this mail
+                            UniversalProgressDialog.hide()
                         phoneEt.setError("User not found")
                         phoneEt.requestFocus()
                         return@addOnCompleteListener
                     }
                 }else{
                     Log.e("**", "fetchSignInMethods: Failed" )
+                    UniversalProgressDialog.hide()
                 }
         }
     }
@@ -100,12 +106,15 @@ class LoginActivity : AppCompatActivity() {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+                        UniversalProgressDialog.hide()
+
                         startActivity(intent)
                         this.finish()
                     } else {
                         Log.e("**", "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+                        Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        UniversalProgressDialog.hide()
                     }
                 }
             }
@@ -114,7 +123,7 @@ class LoginActivity : AppCompatActivity() {
                 val otpVerificationIntent = Intent(this, OtpVerificationActivity::class.java)
                 otpVerificationIntent.putExtra(GlobalStrings.phone, phoneMail)
                 startActivity(otpVerificationIntent)
-
+                UniversalProgressDialog.hide()
             }
         }
     }
