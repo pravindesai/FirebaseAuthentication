@@ -45,14 +45,17 @@ class RegistrationActivity : AppCompatActivity() {
 
         if (fname.trim().isEmpty() || fname.trim().isBlank()) {
             firstNameEt.setError("Required")
+            UniversalProgressDialog.hide()
             return
         }
         if (lname.trim().isEmpty() || lname.trim().isBlank()) {
             lastNameEt.setError("Required")
+            UniversalProgressDialog.hide()
             return
         }
         if (phone.trim().isEmpty() || phone.trim().isBlank()) {
             editTextTextPhoneNumber.setError("Required")
+            UniversalProgressDialog.hide()
             return
         }
         if (password.trim().isEmpty() || password.trim().isBlank()) {
@@ -60,8 +63,10 @@ class RegistrationActivity : AppCompatActivity() {
             if (password.length<6){
                 editTextTextPassword.setError("Password lenght should be 6 characters")
                 editTextTextPassword.requestFocus()
+                UniversalProgressDialog.hide()
                 return
             }
+            UniversalProgressDialog.hide()
             return
         }
 

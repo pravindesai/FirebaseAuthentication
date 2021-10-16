@@ -64,6 +64,7 @@ class OtpVerificationActivity : AppCompatActivity() {
 
     //Turn on phone authentication from FirebaseProject->Authentication->Sign-InMethods
     //Turn on email authentication from FirebaseProject->Authentication->Sign-InMethods
+    //Add SHA1 and SHA 256 key to firebase project REFERENCE: https://www.youtube.com/watch?v=lVSSZ84HBAU
     private fun sendVerificationCode(phone: String) {
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber("+91"+phone)       // Phone number to verify
@@ -78,10 +79,14 @@ class OtpVerificationActivity : AppCompatActivity() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
             val code = credential.smsCode
+            Log.e(TAG, "onVerificationCompleted: $code" )
             if (code!=null){
                 signInWithPhoneAuthCredential(code)
+            }else{
+                signInWithPhoneAuthCredential(credential)
             }
             UniversalProgressDialog.hide()
+
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
@@ -92,47 +97,49 @@ class OtpVerificationActivity : AppCompatActivity() {
         }
 
         override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-            Log.e(TAG, "onCodeSent")
+            Log.e(TAG, "onCodeSent ")
             verificationCode = verificationId
 
         }
     }
 
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential){
+        auth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful){
+
+                if (auth.currentUser?.email.isNullOrBlank()) {
+                    linkMailForPasswordAuth()
+                }else{
+                    Log.e(TAG, "signInWithPhoneAuthCredential: "+auth.currentUser?.email )
+                }
+
+
+                val intent = Intent(this@OtpVerificationActivity, ProfileActivity::class.java)
+                intent.putExtra( GlobalStrings.fname,    fname)
+                intent.putExtra( GlobalStrings.lname,    lname)
+                intent.putExtra( GlobalStrings.phone,    phone)
+                intent.putExtra( GlobalStrings.password, password)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+                Log.e(TAG, "**signInWithPhoneAuthCredential: Uniques uid--> "+auth.currentUser?.uid )
+
+                UniversalProgressDialog.hide()
+                startActivity(intent)
+                this.finishAffinity()
+            }else{
+                Toast.makeText(this@OtpVerificationActivity, "Failed*", Toast.LENGTH_SHORT).show()
+                UniversalProgressDialog.hide()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this@OtpVerificationActivity, "Failed", Toast.LENGTH_SHORT).show()
+            UniversalProgressDialog.hide()
+        }
+    }
     private fun signInWithPhoneAuthCredential(code:String) {
             val credential = PhoneAuthProvider.getCredential(verificationCode, code)
-
-            auth.signInWithCredential(credential).addOnCompleteListener {
-                    if (it.isSuccessful){
-
-                        if (auth.currentUser?.email.isNullOrBlank()) {
-                            linkMailForPasswordAuth()
-                        }else{
-                            Log.e(TAG, "signInWithPhoneAuthCredential: "+auth.currentUser?.email )
-                        }
-
-
-                        val intent = Intent(this@OtpVerificationActivity, ProfileActivity::class.java)
-                            intent.putExtra( GlobalStrings.fname,    fname)
-                            intent.putExtra( GlobalStrings.lname,    lname)
-                            intent.putExtra( GlobalStrings.phone,    phone)
-                            intent.putExtra( GlobalStrings.password, password)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-                        Log.e(TAG, "**signInWithPhoneAuthCredential: Uniques uid--> "+auth.currentUser?.uid )
-
-                        UniversalProgressDialog.hide()
-                        startActivity(intent)
-                        this.finish()
-                    }else{
-                        Toast.makeText(this@OtpVerificationActivity, "Failed*", Toast.LENGTH_SHORT).show()
-                        UniversalProgressDialog.hide()
-                    }
-            }.addOnFailureListener {
-                Toast.makeText(this@OtpVerificationActivity, "Failed", Toast.LENGTH_SHORT).show()
-                UniversalProgressDialog.hide()
-        }
+            signInWithPhoneAuthCredential(credential)
     }
 
     //2021
